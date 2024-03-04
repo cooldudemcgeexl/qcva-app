@@ -1,0 +1,18 @@
+datasource sqlite {
+    provider = "sqlite"
+    url      = "file:./dev.db"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+generator typegraphql {
+    provider = "typegraphql-prisma"
+}
+
+model User {
+    id    String @id @unique @default(cuid())
+    email String @unique
+    age   Int?
+}

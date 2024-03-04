@@ -1,0 +1,8 @@
+{
+  "name": "qcva-app",
+  "version": "0.1.0",
+  "description": "Inventory management system for QCVA",
+  "main": "dist/index.js",
+  "author": "Nick Lay",
+  "license": "MIT"
+}
