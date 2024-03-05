@@ -1,0 +1,63 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  email String [unique, not null]
+  age Int
+}
+
+Table PoleHistory {
+  id String [pk]
+  pole Pole [not null]
+  poleId Int [not null]
+  date DateTime [not null]
+  comment String [not null]
+}
+
+Table Notes {
+  id String [pk]
+  pole Pole [not null]
+  poleId Int [not null]
+}
+
+Table Pole {
+  id Int [pk, increment]
+  cm Int [not null]
+  w Int [not null]
+  f Decimal [not null]
+  serialNumber String [unique, not null]
+  status String [not null]
+  dop DateTime [not null]
+  history PoleHistory [not null]
+  notes Notes [not null]
+  nfc String [unique, not null]
+}
+
+Table Customer {
+  id String [pk]
+  firstName String [not null]
+  lastName String [not null]
+  address String
+  city String
+  state String
+  zip String
+  phone String
+  email String
+  Order Order [not null]
+}
+
+Table Order {
+  id String [pk]
+  orderType String [not null]
+  customerId String [not null]
+  customer Customer [not null]
+  orderTotal Decimal [not null]
+}
+
+Ref: PoleHistory.poleId > Pole.id
+
+Ref: Notes.poleId > Pole.id
+
+Ref: Order.customerId > Customer.id

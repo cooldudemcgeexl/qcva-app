@@ -11,8 +11,63 @@ generator typegraphql {
     provider = "typegraphql-prisma"
 }
 
+generator dbml {
+    provider = "prisma-dbml-generator"
+}
+
 model User {
     id    String @id @unique @default(cuid())
     email String @unique
     age   Int?
+}
+
+model PoleHistory {
+    id      String   @id @unique @default(cuid())
+    pole    Pole     @relation(fields: [poleId], references: [id])
+    poleId  Int
+    date    DateTime
+    comment String
+}
+
+model Notes {
+    id     String @id @unique @default(cuid())
+    pole   Pole   @relation(fields: [poleId], references: [id])
+    poleId Int
+}
+
+model Pole {
+    id           Int           @id @unique @default(autoincrement())
+    cm           Int
+    w            Int
+    f            Decimal
+    serialNumber String        @unique
+    status       String
+    dop          DateTime
+    history      PoleHistory[]
+    notes        Notes[]
+    nfc          String        @unique
+    Order        Order?        @relation(fields: [orderId], references: [id])
+    orderId      String?
+}
+
+model Customer {
+    id        String  @id @unique @default(cuid())
+    firstName String
+    lastName  String
+    address   String?
+    city      String?
+    state     String?
+    zip       String?
+    phone     String?
+    email     String?
+    Order     Order[]
+}
+
+model Order {
+    id         String   @id @unique @default(cuid())
+    orderType  String
+    customerId String
+    customer   Customer @relation(fields: [customerId], references: [id])
+    orderTotal Decimal
+    poles      Pole[]
 }
