@@ -16,7 +16,7 @@ Table PoleHistory {
   comment String [not null]
 }
 
-Table Notes {
+Table Note {
   id String [pk]
   pole Pole [not null]
   poleId Int [not null]
@@ -24,15 +24,34 @@ Table Notes {
 
 Table Pole {
   id Int [pk, increment]
+  length String [not null]
   cm Int [not null]
-  w Int [not null]
-  f Decimal [not null]
+  weight Int [not null]
+  flex Decimal [not null]
   serialNumber String [unique, not null]
   status String [not null]
   dop DateTime [not null]
   history PoleHistory [not null]
-  notes Notes [not null]
+  notes Note [not null]
   nfc String [unique, not null]
+  cost Decimal [not null]
+  soldAt Decimal
+  revenue Decimal
+  lengthRate String [not null]
+  poleRate PoleRate [not null]
+}
+
+Table PoleRate {
+  id String [pk]
+  length String [unique, not null]
+  new Decimal
+  clubNew Decimal
+  used Decimal
+  clubUsed Decimal
+  rentSeason Decimal
+  rentMonth Decimal
+  rentMeet Decimal
+  Pole Pole [not null]
 }
 
 Table Customer {
@@ -45,19 +64,31 @@ Table Customer {
   zip String
   phone String
   email String
-  Order Order [not null]
+  orders Order [not null]
 }
 
 Table Order {
   id String [pk]
-  orderType String [not null]
   customerId String [not null]
   customer Customer [not null]
+  orderItems OrderItem [not null]
   orderTotal Decimal [not null]
+}
+
+Table OrderItem {
+  id String [pk]
+  orderType String [not null]
+  Order Order [not null]
+  orderId String [not null]
+  price Decimal [not null]
 }
 
 Ref: PoleHistory.poleId > Pole.id
 
-Ref: Notes.poleId > Pole.id
+Ref: Note.poleId > Pole.id
+
+Ref: Pole.lengthRate > PoleRate.length
 
 Ref: Order.customerId > Customer.id
+
+Ref: OrderItem.orderId > Order.id

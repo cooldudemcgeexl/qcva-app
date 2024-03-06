@@ -29,7 +29,7 @@ model PoleHistory {
     comment String
 }
 
-model Notes {
+model Note {
     id     String @id @unique @default(cuid())
     pole   Pole   @relation(fields: [poleId], references: [id])
     poleId Int
@@ -37,17 +37,34 @@ model Notes {
 
 model Pole {
     id           Int           @id @unique @default(autoincrement())
+    length       String
     cm           Int
-    w            Int
-    f            Decimal
+    weight       Int
+    flex         Decimal
     serialNumber String        @unique
-    status       String
+    status       String // Active, Pending, Sold, Rented, Broken
     dop          DateTime
     history      PoleHistory[]
-    notes        Notes[]
+    notes        Note[]
     nfc          String        @unique
-    Order        Order?        @relation(fields: [orderId], references: [id])
-    orderId      String?
+    cost         Decimal
+    soldAt       Decimal?
+    revenue      Decimal?
+    lengthRate   String
+    poleRate     PoleRate      @relation(fields: [lengthRate], references: [length])
+}
+
+model PoleRate {
+    id         String   @id @unique @default(cuid())
+    length     String   @unique
+    new        Decimal?
+    clubNew    Decimal?
+    used       Decimal?
+    clubUsed   Decimal?
+    rentSeason Decimal?
+    rentMonth  Decimal?
+    rentMeet   Decimal?
+    poles      Pole[]
 }
 
 model Customer {
@@ -60,14 +77,21 @@ model Customer {
     zip       String?
     phone     String?
     email     String?
-    Order     Order[]
+    orders    Order[]
 }
 
 model Order {
-    id         String   @id @unique @default(cuid())
-    orderType  String
+    id         String      @id @unique @default(cuid())
     customerId String
-    customer   Customer @relation(fields: [customerId], references: [id])
+    customer   Customer    @relation(fields: [customerId], references: [id])
+    orderItems OrderItem[]
     orderTotal Decimal
-    poles      Pole[]
+}
+
+model OrderItem {
+    id        String  @id @unique @default(cuid())
+    orderType String // Season, Monthly, Meet, Sale
+    order     Order   @relation(fields: [orderId], references: [id])
+    orderId   String
+    price     Decimal
 }
