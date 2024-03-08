@@ -33,7 +33,7 @@ Table Pole {
   dop DateTime [not null]
   history PoleHistory [not null]
   notes Note [not null]
-  nfc String [unique, not null]
+  nfc String [unique]
   cost Decimal [not null]
   soldAt Decimal
   revenue Decimal
@@ -51,7 +51,7 @@ Table PoleRate {
   rentSeason Decimal
   rentMonth Decimal
   rentMeet Decimal
-  Pole Pole [not null]
+  poles Pole [not null]
 }
 
 Table Customer {
@@ -78,7 +78,7 @@ Table Order {
 Table OrderItem {
   id String [pk]
   orderType String [not null]
-  Order Order [not null]
+  order Order [not null]
   orderId String [not null]
   price Decimal [not null]
 }

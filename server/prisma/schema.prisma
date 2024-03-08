@@ -46,7 +46,7 @@ model Pole {
     dop          DateTime
     history      PoleHistory[]
     notes        Note[]
-    nfc          String        @unique
+    nfc          String?       @unique
     cost         Decimal
     soldAt       Decimal?
     revenue      Decimal?
