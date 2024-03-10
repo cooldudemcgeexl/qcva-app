@@ -1,17 +1,17 @@
 from datetime import date
 from decimal import Decimal
+from typing import Self
 from pydantic import BaseModel, ConfigDict, Field
 from cuid2 import cuid_wrapper
 from pydantic.alias_generators import to_camel
+import pandas as pd
 
 
 cuid_generator = cuid_wrapper()
 
 
 class BaseSchema(BaseModel):
-    model_config = ConfigDict(
-        alias_generator=to_camel, populate_by_name=True, from_attributes=True
-    )
+    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True, from_attributes=True)
 
 
 class PoleRate(BaseSchema):
@@ -24,6 +24,16 @@ class PoleRate(BaseSchema):
     rent_season: Decimal | None = None
     rent_month: Decimal | None = None
     rent_meet: Decimal | None = None
+
+    @staticmethod
+    def from_series(series: pd.Series) -> "PoleRate":
+        return PoleRate(
+            length=series["Length"],
+            new=series["New"],
+            club_new=series["Club New"],
+            used=series["Used"],
+            club_used=series["Club Used"],
+        )
 
 
 class Pole(BaseSchema):
