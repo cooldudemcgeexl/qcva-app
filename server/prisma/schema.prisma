@@ -50,8 +50,7 @@ model Pole {
     cost         Decimal
     soldAt       Decimal?
     revenue      Decimal?
-    lengthRate   String
-    poleRate     PoleRate      @relation(fields: [lengthRate], references: [length])
+    poleRate     PoleRate      @relation(fields: [length], references: [length])
 }
 
 model PoleRate {

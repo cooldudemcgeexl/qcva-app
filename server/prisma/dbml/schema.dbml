@@ -37,7 +37,6 @@ Table Pole {
   cost Decimal [not null]
   soldAt Decimal
   revenue Decimal
-  lengthRate String [not null]
   poleRate PoleRate [not null]
 }
 
@@ -87,7 +86,7 @@ Ref: PoleHistory.poleId > Pole.id
 
 Ref: Note.poleId > Pole.id
 
-Ref: Pole.lengthRate > PoleRate.length
+Ref: Pole.length > PoleRate.length
 
 Ref: Order.customerId > Customer.id
 
