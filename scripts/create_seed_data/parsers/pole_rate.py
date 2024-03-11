@@ -4,7 +4,7 @@ from models.models import PoleRate
 from decimal import Decimal
 
 
-def get_pole_rates(rates: pd.DataFrame, pole_info: pd.DataFrame) -> dict[str, PoleRate]:
+def get_pole_rates(rates: pd.DataFrame, pole_info: pd.DataFrame):
 
     pole_rates = [PoleRate.from_series(row) for _, row in rates.iterrows()]
 
@@ -19,4 +19,4 @@ def get_pole_rates(rates: pd.DataFrame, pole_info: pd.DataFrame) -> dict[str, Po
             pole_rate.rent_season = Decimal(row["Seas."].item())  # Shennanigans to make np.int64 parse to Decimal
             pole_rate.rent_month = Decimal(row["Mont."].item())  # np.int64 -> python int -> Decimal
 
-    return pole_rate_dict
+    return list(pole_rate_dict.values())

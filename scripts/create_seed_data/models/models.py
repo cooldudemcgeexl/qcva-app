@@ -1,7 +1,8 @@
-from datetime import date
+from datetime import date, datetime
 from decimal import Decimal
+from re import L
 from typing import Self
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 from cuid2 import cuid_wrapper
 from pydantic.alias_generators import to_camel
 import pandas as pd
@@ -12,6 +13,10 @@ cuid_generator = cuid_wrapper()
 
 class BaseSchema(BaseModel):
     model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True, from_attributes=True)
+
+
+def serialize_model_list(models: list[BaseSchema]):
+    return [model.model_dump(by_alias=True) for model in models]
 
 
 class PoleRate(BaseSchema):
@@ -41,15 +46,49 @@ class Pole(BaseSchema):
     length: str
     cm: int
     weight: int
-    flex: Decimal
+    flex: Decimal | None
     serial_number: str
     status: str
     dop: date
-    nfc: str
+    note: str | None
+    nfc: str | None = None
     cost: Decimal
     sold_at: Decimal | None
     revenue: Decimal | None
-    length_rate: str
+
+    @staticmethod
+    def from_series(series: pd.Series) -> "Pole":
+        return Pole(
+            id=series["Pole ID"],
+            length=series["L"],
+            cm=series["CM"],
+            weight=series["W"],
+            flex=series["F"],
+            serial_number=str(series["SN"]),
+            status=series["Status"],
+            dop=series["DOP"],
+            note=series["Notes"],
+            cost=series["Cost"],
+            sold_at=series["Sold"],
+            revenue=series["Rev"],
+        )
+
+    @field_serializer("dop")
+    def format_date_as_str(date: datetime):  # type: ignore
+        # pylint: disable=no-self-argument
+        return date.strftime("%Y-%m-%d %H:%M:%S")
+
+
+class PoleHistory(BaseSchema):
+    id: str = Field(default_factory=cuid_generator)
+    pole_id: int
+    date: datetime = Field(default_factory=datetime.utcnow)
+    comment: str
+
+    @field_serializer("date")
+    def format_date_as_str(date: datetime):  # type: ignore
+        # pylint: disable=no-self-argument
+        return date.strftime("%Y-%m-%d %H:%M:%S")
 
 
 class Customer(BaseSchema):

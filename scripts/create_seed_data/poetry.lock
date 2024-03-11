@@ -526,6 +526,17 @@ files = [
 ]
 
 [[package]]
+name = "types-ujson"
+version = "5.9.0.0"
+description = "Typing stubs for ujson"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "types-ujson-5.9.0.0.tar.gz", hash = "sha256:7e7042454dc7cd7f31b09c420d7caf36b93d30bdf4b8db93791bd0561713d017"},
+    {file = "types_ujson-5.9.0.0-py3-none-any.whl", hash = "sha256:f274fa604ed6317effcd1c424ef4cf292c3b0689cb118fb3180689d40ed1f4ed"},
+]
+
+[[package]]
 name = "typing-extensions"
 version = "4.10.0"
 description = "Backported and Experimental Type Hints for Python 3.8+"
@@ -624,4 +635,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "80d8c867ba4e5279ed86bf58786c562cb1a88d88f717999a75e53dfb14696852"
+content-hash = "2db7f7f84a3ff0fe59eddeb86ccbc0985aa9b901145d75b34469155e9a58c029"
