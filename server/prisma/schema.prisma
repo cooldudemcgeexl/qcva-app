@@ -29,23 +29,17 @@ model PoleHistory {
     comment String
 }
 
-model Note {
-    id     String @id @unique @default(cuid())
-    pole   Pole   @relation(fields: [poleId], references: [id])
-    poleId Int
-}
-
 model Pole {
     id           Int           @id @unique @default(autoincrement())
     length       String
     cm           Int
     weight       Int
     flex         Decimal
-    serialNumber String        @unique
+    serialNumber String?       @unique
     status       String // Active, Pending, Sold, Rented, Broken
     dop          DateTime
     history      PoleHistory[]
-    notes        Note[]
+    note         String?
     nfc          String?       @unique
     cost         Decimal
     soldAt       Decimal?

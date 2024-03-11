@@ -16,23 +16,17 @@ Table PoleHistory {
   comment String [not null]
 }
 
-Table Note {
-  id String [pk]
-  pole Pole [not null]
-  poleId Int [not null]
-}
-
 Table Pole {
   id Int [pk, increment]
   length String [not null]
   cm Int [not null]
   weight Int [not null]
   flex Decimal [not null]
-  serialNumber String [unique, not null]
+  serialNumber String [unique]
   status String [not null]
   dop DateTime [not null]
   history PoleHistory [not null]
-  notes Note [not null]
+  note String
   nfc String [unique]
   cost Decimal [not null]
   soldAt Decimal
@@ -83,8 +77,6 @@ Table OrderItem {
 }
 
 Ref: PoleHistory.poleId > Pole.id
-
-Ref: Note.poleId > Pole.id
 
 Ref: Pole.length > PoleRate.length
 
