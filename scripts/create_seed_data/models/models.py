@@ -73,7 +73,7 @@ class Pole(BaseSchema):
             revenue=series["Rev"],
         )
 
-    @field_serializer("dop")
+    @field_serializer("dop", when_used="unless-none")
     def format_date_as_str(date: datetime):  # type: ignore
         # pylint: disable=no-self-argument
         return date.strftime("%Y-%m-%d %H:%M:%S")
@@ -85,7 +85,7 @@ class PoleHistory(BaseSchema):
     date: datetime = Field(default_factory=datetime.utcnow)
     comment: str
 
-    @field_serializer("date")
+    @field_serializer("date", when_used="unless-none")
     def format_date_as_str(date: datetime):  # type: ignore
         # pylint: disable=no-self-argument
         return date.strftime("%Y-%m-%d %H:%M:%S")
@@ -101,6 +101,41 @@ class Customer(BaseSchema):
     zip: str | None
     phone: str | None
     email: str | None
+
+    @staticmethod
+    def from_series(series: pd.Series):
+        return Customer(
+            first_name=series["First"],
+            last_name=series["Last/ School"],
+            address=series["Address"],
+            city=series["City"],
+            state=series["State"],
+            zip=series["Zip"],
+            phone=series["Phone"],
+            email=series["Email"],
+        )
+
+    @field_serializer("first_name", "last_name", "address", "city", when_used="unless-none")
+    def normalize_case(string: str):  # type: ignore
+        # pylint: disable=no-self-argument
+        return string.title()
+
+    @field_serializer("state", when_used="unless-none")
+    def normalize_states(string: str):  # type: ignore
+        # pylint: disable=no-self-argument
+        match strupper := string.upper():
+            case "OH" | "OHIO" | "OH-OHIO":
+                return "OH"
+            case "KY" | "KENTUCKY":
+                return "KY"
+            case "TN":
+                return "TN"
+            case "IN":
+                return "IN"
+            case "CA":
+                return "CA"
+            case _:
+                return strupper
 
 
 class Order(BaseSchema):
