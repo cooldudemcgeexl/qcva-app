@@ -45,6 +45,7 @@ model Pole {
     soldAt       Decimal?
     revenue      Decimal?
     poleRate     PoleRate      @relation(fields: [length], references: [length])
+    orderItem    OrderItem[]
 }
 
 model PoleRate {
@@ -78,6 +79,7 @@ model Order {
     customerId String
     customer   Customer    @relation(fields: [customerId], references: [id])
     orderItems OrderItem[]
+    orderDate  DateTime
     orderTotal Decimal
     closed     Boolean
 }
@@ -85,7 +87,9 @@ model Order {
 model OrderItem {
     id        String  @id @unique @default(cuid())
     orderType String // Season, Monthly, Meet, Sale
+    pole      Pole    @relation(fields: [poleId], references: [id])
     order     Order   @relation(fields: [orderId], references: [id])
     orderId   String
     price     Decimal
+    poleId    Int
 }

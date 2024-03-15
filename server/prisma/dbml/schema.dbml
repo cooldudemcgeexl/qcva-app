@@ -32,6 +32,7 @@ Table Pole {
   soldAt Decimal
   revenue Decimal
   poleRate PoleRate [not null]
+  orderItem OrderItem [not null]
 }
 
 Table PoleRate {
@@ -65,15 +66,19 @@ Table Order {
   customerId String [not null]
   customer Customer [not null]
   orderItems OrderItem [not null]
+  orderDate DateTime [not null]
   orderTotal Decimal [not null]
+  closed Boolean [not null]
 }
 
 Table OrderItem {
   id String [pk]
   orderType String [not null]
+  pole Pole [not null]
   order Order [not null]
   orderId String [not null]
   price Decimal [not null]
+  poleId Int [not null]
 }
 
 Ref: PoleHistory.poleId > Pole.id
@@ -81,5 +86,7 @@ Ref: PoleHistory.poleId > Pole.id
 Ref: Pole.length > PoleRate.length
 
 Ref: Order.customerId > Customer.id
+
+Ref: OrderItem.poleId > Pole.id
 
 Ref: OrderItem.orderId > Order.id
