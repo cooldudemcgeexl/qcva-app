@@ -1,7 +1,6 @@
 from datetime import date, datetime
 from decimal import Decimal
-from re import L
-from typing import Self
+from typing import Sequence
 from pydantic import BaseModel, ConfigDict, Field, field_serializer
 from cuid2 import cuid_wrapper
 from pydantic.alias_generators import to_camel
@@ -15,7 +14,7 @@ class BaseSchema(BaseModel):
     model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True, from_attributes=True)
 
 
-def serialize_model_list(models: list[BaseSchema]):
+def serialize_model_list(models: Sequence[BaseSchema]):
     return [model.model_dump(by_alias=True) for model in models]
 
 
@@ -141,11 +140,37 @@ class Customer(BaseSchema):
 class Order(BaseSchema):
     id: str = Field(default_factory=cuid_generator)
     customer_id: str
+    order_date: date
     order_total: Decimal
+    closed: bool
+
+    @field_serializer("order_date", when_used="unless-none")
+    def format_date_as_str(date: datetime):  # type: ignore
+        # pylint: disable=no-self-argument
+        return date.strftime("%Y-%m-%d %H:%M:%S")
+
+    @staticmethod
+    def from_series(series: pd.Series, customer_id: str):
+        return Order(
+            customer_id=customer_id,
+            order_date=series["Order Date"],
+            order_total=series["Order Total"],
+            closed=series["Closed"],
+        )
 
 
 class OrderItem(BaseSchema):
     id: str = Field(default_factory=cuid_generator)
     order_type: str
+    pole_id: int
     order_id: str
     price: Decimal
+
+    @staticmethod
+    def from_series(series: pd.Series, order_id: str):
+        return OrderItem(
+            order_type=series["Order Type"],
+            pole_id=series["Pole #"],
+            order_id=order_id,
+            price=series["Price"],
+        )

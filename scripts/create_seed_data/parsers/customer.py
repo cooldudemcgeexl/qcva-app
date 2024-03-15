@@ -2,7 +2,7 @@ import pandas as pd
 from models.models import Customer
 
 
-def get_customers(customers: pd.DataFrame):
+def get_customers(customers: pd.DataFrame) -> tuple[list[Customer], dict[str, str]]:
     customer_list = []
     cust_id_dict = {}
 
