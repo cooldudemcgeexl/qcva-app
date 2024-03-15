@@ -1,4 +1,5 @@
 import argparse
+from parsers.customer import get_customers
 import ujson
 from pathlib import Path
 import numpy as np
@@ -28,13 +29,22 @@ if __name__ == "__main__":
     with pd.ExcelFile(in_file) as xls:
         rates_df = pd.read_excel(xls, "Pole Rates", skiprows=2, usecols="B:G", na_values="-").replace({np.nan: None})
         poles_df = pd.read_excel(xls, "Poles", skiprows=2, usecols="A:P").replace({np.nan: None})
+        customers_df = pd.read_excel(
+            xls, "Customer", skiprows=2, nrows=44, usecols="A:I", dtype={"Zip": str, "Phone": str}
+        ).replace({np.nan: None})
+        orders_df = pd.read_excel(xls, "Orders", skiprows=2, usecols="A:G").replace({np.nan: None})
+        order_items_df = pd.read_excel(xls, "OrderItems", skiprows=2, usecols="A:E", na_values="-").replace(
+            {np.nan: None}
+        )
 
     pole_rates = get_pole_rates(rates=rates_df, pole_info=poles_df[["L", "Seas.", "Mont."]])
     poles, pole_history = get_poles(poles_df)
+    customers, cust_ids = get_customers(customers_df)
     obj_dict = {
         "poles": serialize_model_list(poles),
         "poleHistory": pole_history,
         "poleRates": serialize_model_list(pole_rates),
+        "customers": serialize_model_list(customers),
     }
 
     print(obj_dict)
