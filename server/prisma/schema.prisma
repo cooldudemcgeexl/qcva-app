@@ -79,6 +79,7 @@ model Order {
     customer   Customer    @relation(fields: [customerId], references: [id])
     orderItems OrderItem[]
     orderTotal Decimal
+    closed     Boolean
 }
 
 model OrderItem {
