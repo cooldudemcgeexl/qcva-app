@@ -22,7 +22,7 @@ Table Pole {
   cm Int [not null]
   weight Int [not null]
   flex Decimal [not null]
-  serialNumber String [unique]
+  serialNumber String
   status String [not null]
   dop DateTime [not null]
   history PoleHistory [not null]
@@ -31,21 +31,19 @@ Table Pole {
   cost Decimal [not null]
   soldAt Decimal
   revenue Decimal
-  poleRate PoleRate [not null]
   orderItem OrderItem [not null]
 }
 
 Table PoleRate {
   id String [pk]
   length String [unique, not null]
-  new Decimal
-  clubNew Decimal
-  used Decimal
-  clubUsed Decimal
+  newRate Decimal
+  clubNewRate Decimal
+  usedRate Decimal
+  clubUsedRate Decimal
   rentSeason Decimal
   rentMonth Decimal
   rentMeet Decimal
-  poles Pole [not null]
 }
 
 Table Customer {
@@ -82,8 +80,6 @@ Table OrderItem {
 }
 
 Ref: PoleHistory.poleId > Pole.id
-
-Ref: Pole.length > PoleRate.length
 
 Ref: Order.customerId > Customer.id
 

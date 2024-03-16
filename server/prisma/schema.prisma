@@ -35,7 +35,7 @@ model Pole {
     cm           Int
     weight       Int
     flex         Decimal
-    serialNumber String?       @unique
+    serialNumber String?
     status       String // Active, Pending, Sold, Rented, Broken
     dop          DateTime
     history      PoleHistory[]
@@ -44,21 +44,19 @@ model Pole {
     cost         Decimal
     soldAt       Decimal?
     revenue      Decimal?
-    poleRate     PoleRate      @relation(fields: [length], references: [length])
     orderItem    OrderItem[]
 }
 
 model PoleRate {
-    id         String   @id @unique @default(cuid())
-    length     String   @unique
-    new        Decimal?
-    clubNew    Decimal?
-    used       Decimal?
-    clubUsed   Decimal?
-    rentSeason Decimal?
-    rentMonth  Decimal?
-    rentMeet   Decimal?
-    poles      Pole[]
+    id           String   @id @unique @default(cuid())
+    length       String   @unique
+    newRate      Decimal?
+    clubNewRate  Decimal?
+    usedRate     Decimal?
+    clubUsedRate Decimal?
+    rentSeason   Decimal?
+    rentMonth    Decimal?
+    rentMeet     Decimal?
 }
 
 model Customer {
