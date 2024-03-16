@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     obj_dict = {
         "poles": serialize_model_list(poles),
-        "poleHistory": pole_history,
+        "poleHistory": serialize_model_list(pole_history),
         "poleRates": serialize_model_list(pole_rates),
         "customers": serialize_model_list(customers),
         "orders": serialize_model_list(orders),

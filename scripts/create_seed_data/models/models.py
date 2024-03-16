@@ -21,10 +21,10 @@ def serialize_model_list(models: Sequence[BaseSchema]):
 class PoleRate(BaseSchema):
     id: str = Field(default_factory=cuid_generator)
     length: str
-    new: Decimal | None
-    club_new: Decimal | None
-    used: Decimal | None
-    club_used: Decimal | None
+    new_rate: Decimal | None
+    club_new_rate: Decimal | None
+    used_rate: Decimal | None
+    club_used_rate: Decimal | None
     rent_season: Decimal | None = None
     rent_month: Decimal | None = None
     rent_meet: Decimal | None = None
@@ -33,10 +33,10 @@ class PoleRate(BaseSchema):
     def from_series(series: pd.Series) -> "PoleRate":
         return PoleRate(
             length=series["Length"],
-            new=series["New"],
-            club_new=series["Club New"],
-            used=series["Used"],
-            club_used=series["Club Used"],
+            new_rate=series["New"],
+            club_new_rate=series["Club New"],
+            used_rate=series["Used"],
+            club_used_rate=series["Club Used"],
         )
 
 

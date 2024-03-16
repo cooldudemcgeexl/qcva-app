@@ -27,8 +27,13 @@
   },
   "scripts": {
     "generate": "npx prisma generate",
+    "migrate": "npx prisma migrate",
+    "seed": "npx prisma db seed",
     "build": "tsc --pretty",
     "start": "node .",
     "dev": "nodemon -w src/ --ext 'ts' --exec 'tsc && node .'"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts "
   }
 }

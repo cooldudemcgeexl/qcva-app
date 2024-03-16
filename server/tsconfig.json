@@ -10,7 +10,8 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "outDir": "dist",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*", "tests/**/*"]
 }
