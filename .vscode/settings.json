@@ -1,0 +1,19 @@
+{
+  "editor.formatOnSave": true,
+  "editor.indentSize": "tabSize",
+  "[typescriptreact]": {
+    "togglequotes.chars": ["\"", "'", "`"],
+    "editor.tabSize": 2
+  },
+  "[typescript]": {
+    "togglequotes.chars": ["\"", "'", "`"],
+    "editor.tabSize": 2
+  },
+  "[python]": {
+    "diffEditor.ignoreTrimWhitespace": false,
+    "gitlens.codeLens.symbolScopes": ["!Module"],
+    "editor.formatOnType": true,
+    "editor.wordBasedSuggestions": "off",
+    "editor.tabSize": 4
+  }
+}
