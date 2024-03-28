@@ -1,33 +1,15 @@
-import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from 'react-native';
 
-import "../../styles.css"
 
 export default function TabOneScreen() {
   return (
     <View className='flex-1 justify-center items-center' >
       <Text className='text-4xl text-red-800'>Tab One</Text>
-      <View style={styles.separator} />
+      <View  className='h-1 w-4/5 my-8'/>
       <EditScreenInfo path="app/(tabs)/index.tsx" />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
