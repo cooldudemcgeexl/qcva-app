@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "dev": "expo start --tunnel",
+    "dev:tunnel": "yarn start --tunnel",
+    "dev": "yarn start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
