@@ -1,0 +1,1 @@
+export const GraphQLURI = process.env.GRAPHQL_URI || 'http://localhost:4000'

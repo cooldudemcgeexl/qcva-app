@@ -2,30 +2,27 @@ import { StyleSheet } from "react-native";
 
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "react-native";
+import { Table, Row, Rows } from "react-native-reanimated-table";
+
+import { GetCustomerDocument } from "@/generated";
+
+const tableHeaders = [
+  "First",
+  "Last/School",
+  "Address",
+  "City",
+  "State",
+  "Zip",
+  "Phone",
+  "Email",
+];
 
 export default function TabTwoScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
+    <View className="flex-1 items-center justify-center">
+      <Table>
+        <Row data={tableHeaders}></Row>
+      </Table>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});

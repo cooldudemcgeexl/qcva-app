@@ -6,16 +6,14 @@ import {
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
-import { Drawer } from "expo-router/drawer";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-
 import { useColorScheme } from "@/components/useColorScheme";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 import "../styles.css";
-import NavDrawerContainer from "@/components/nav";
+import { GraphQLURI } from "@/constants/Uri";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -54,16 +52,23 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
+const client = new ApolloClient({
+  uri: GraphQLURI,
+  cache: new InMemoryCache(),
+});
+
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      {/* <NavDrawerContainer /> */}
-      <Stack>
-        <Stack.Screen name="(screens)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-      </Stack>
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        {/* <NavDrawerContainer /> */}
+        <Stack>
+          <Stack.Screen name="(screens)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+        </Stack>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
