@@ -9,7 +9,7 @@ import path from "path";
 
 const PORT = (process.env.PORT ? parseInt(process.env.PORT) : null) || 4000;
 
-const SCHEMA_EXPORT_PATH = '../../schema/schema.graphql'
+const SCHEMA_EXPORT_PATH = '../../graphql/schema/schema.graphql'
 
 async function bootstrap() {
 
