@@ -1,0 +1,10 @@
+query getCustomer($where: CustomerWhereUniqueInput!) {
+  getCustomer(where: $where) {
+    ...CustomerFields
+  }
+}
+
+fragment CustomerFields on Customer {
+  firstName
+  lastName
+}
