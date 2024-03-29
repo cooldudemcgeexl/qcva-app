@@ -1,28 +1,15 @@
-import { StyleSheet } from "react-native";
+import { View } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "react-native";
-import { Table, Row, Rows } from "react-native-reanimated-table";
+import DataTable from "@/components/DataTable";
 
-import { GetCustomerDocument } from "@/generated";
-
-const tableHeaders = [
-  "First",
-  "Last/School",
-  "Address",
-  "City",
-  "State",
-  "Zip",
-  "Phone",
-  "Email",
-];
+const names = [];
 
 export default function TabTwoScreen() {
   return (
-    <View className="flex-1 items-center justify-center">
-      <Table>
-        <Row data={tableHeaders}></Row>
-      </Table>
+    <View className="w-full flex-1 justify-center items-center">
+      <View className=" flex flex-1 items-center justify-center w-full  py-10">
+        <DataTable />
+      </View>
     </View>
   );
 }

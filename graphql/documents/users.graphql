@@ -4,7 +4,19 @@ query getCustomer($where: CustomerWhereUniqueInput!) {
   }
 }
 
+query getCustomers($where: CustomerWhereInput) {
+  customers(where: $where) {
+    ...CustomerFields
+  }
+}
+
 fragment CustomerFields on Customer {
   firstName
   lastName
+  address
+  city
+  state
+  zip
+  phone
+  email
 }
