@@ -10,5 +10,9 @@
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/typed-document-node": "^5.0.6",
     "typescript": "^5.4.3"
+  },
+  "scripts": {
+    "generate": "graphql-codegen",
+    "setup": "yarn && yarn generate"
   }
 }
