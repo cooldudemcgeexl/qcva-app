@@ -9,6 +9,8 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
+import { PaperProvider, MD3LightTheme } from "react-native-paper";
+
 import { useColorScheme } from "@/components/useColorScheme";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
@@ -62,13 +64,13 @@ function RootLayoutNav() {
 
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <PaperProvider theme={MD3LightTheme}>
         {/* <NavDrawerContainer /> */}
         <Stack>
           <Stack.Screen name="(screens)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: "modal" }} />
         </Stack>
-      </ThemeProvider>
+      </PaperProvider>
     </ApolloProvider>
   );
 }

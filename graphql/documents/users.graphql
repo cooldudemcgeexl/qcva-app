@@ -4,13 +4,22 @@ query getCustomer($where: CustomerWhereUniqueInput!) {
   }
 }
 
-query getCustomers($where: CustomerWhereInput) {
-  customers(where: $where) {
+query getCustomerCount($where: CustomerWhereInput) {
+  aggregateCustomer(where: $where) {
+    _count {
+      _all
+    }
+  }
+}
+
+query getCustomers($where: CustomerWhereInput, $skip: Int, $take: Int = 10) {
+  customers(where: $where, skip: $skip, take: $take) {
     ...CustomerFields
   }
 }
 
 fragment CustomerFields on Customer {
+  id
   firstName
   lastName
   address

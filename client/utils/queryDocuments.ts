@@ -1,7 +1,8 @@
 import { omit, values } from "remeda"
 
-interface QueryDoc {
+export interface QueryDoc {
   __typename?: string
+  [key: string | number | symbol]: any
 }
 
 
