@@ -1,8 +1,7 @@
 import { QueryDoc } from "@/utils/queryDocuments";
-import { QueryResult } from "@apollo/client";
 import React, { useMemo } from "react";
 import { DataTable } from "react-native-paper";
-import { entries, omit, values } from "remeda";
+import { entries, values } from "remeda";
 
 export type CellProps = React.ComponentProps<typeof DataTable.Cell>;
 
