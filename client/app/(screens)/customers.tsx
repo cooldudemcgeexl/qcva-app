@@ -3,8 +3,6 @@ import { View } from "react-native";
 
 import { ScrollView } from "react-native-gesture-handler";
 
-const names = [];
-
 export default function TabTwoScreen() {
   return (
     <View className="w-full flex-1 justify-center items-center">
