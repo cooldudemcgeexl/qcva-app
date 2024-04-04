@@ -6,7 +6,11 @@ import {
 } from "@/generated";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { useCallback, useMemo, useState } from "react";
-import QueryTable, { ColumnConfig, ColumnSpec, PaginationProps } from ".";
+import QueryTable, {
+  ColumnConfig,
+  ColumnSpec,
+  PaginationProps,
+} from "../QueryTable";
 import { tableFormatString } from "@/utils/dates";
 import { createPageLabel } from "@/utils/tables";
 import { useFocusEffect } from "expo-router";

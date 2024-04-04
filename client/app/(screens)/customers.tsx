@@ -1,6 +1,6 @@
+import CustomerTable from "@/components/Tables/CustomerTable";
 import { View } from "react-native";
 
-import CustomerTable from "@/components/CustomerTable";
 import { ScrollView } from "react-native-gesture-handler";
 
 const names = [];

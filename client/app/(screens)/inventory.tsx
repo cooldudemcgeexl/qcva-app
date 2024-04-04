@@ -1,4 +1,4 @@
-import InventoryTable from "@/components/InventoryTable";
+import InventoryTable from "@/components/Tables/InventoryTable";
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
