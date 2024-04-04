@@ -12,5 +12,9 @@ export const navRoutes: NavRoute[] = [
   {
     name: 'inventory',
     routeOptions: { drawerLabel: "Inventory", title: "Inventory" }
+  },
+  {
+    name: 'history',
+    routeOptions: { drawerLabel: "Order History", title: "Order History" }
   }
 ]
