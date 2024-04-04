@@ -3,8 +3,9 @@ import {
   GetCustomersDocument,
   Customer,
 } from "@/generated";
-import { useQuery } from "@apollo/client";
-import { useMemo, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useQuery, useLazyQuery } from "@apollo/client";
+import { useCallback, useMemo, useState } from "react";
 import QueryTable, { ColumnSpec, PaginationProps } from "./QueryTable";
 
 const columns: ColumnSpec<Customer> = {
@@ -41,12 +42,21 @@ export default function CustomerTable() {
   const customerCount =
     customerCountResult.data?.aggregateCustomer._count?._all ?? 0;
 
-  const { data, loading, error } = useQuery(GetCustomersDocument, {
-    variables: {
-      skip: itemsPerPage * page,
-      take: itemsPerPage,
-    },
-  });
+  const [getCustomers, { data, loading, error }] = useLazyQuery(
+    GetCustomersDocument,
+    {
+      variables: {
+        skip: itemsPerPage * page,
+        take: itemsPerPage,
+      },
+    }
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      getCustomers();
+    }, [])
+  );
 
   const numPages = useMemo(
     () => Math.ceil(customerCount / itemsPerPage),
@@ -67,6 +77,7 @@ export default function CustomerTable() {
   return (
     <QueryTable
       queryData={data?.customers ?? []}
+      queryLoading={loading}
       columns={columns}
       rowKeyField="id"
       paginationProps={paginationProps}

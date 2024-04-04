@@ -4,8 +4,8 @@ import {
   Pole,
   PoleHistory,
 } from "@/generated";
-import { useQuery } from "@apollo/client";
-import { useMemo, useState } from "react";
+import { useLazyQuery, useQuery } from "@apollo/client";
+import { useCallback, useMemo, useState } from "react";
 import QueryTable, {
   ColumnConfig,
   ColumnSpec,
@@ -13,6 +13,7 @@ import QueryTable, {
 } from "./QueryTable";
 import { tableFormatString } from "@/utils/dates";
 import { createPageLabel } from "@/utils/tables";
+import { useFocusEffect } from "expo-router";
 
 const columns: ColumnSpec<Pole> = {
   id: {
@@ -73,12 +74,18 @@ export default function InventoryTable() {
 
   const poleCount = poleCountResult.data?.aggregatePole._count?._all ?? 0;
 
-  const { data, loading, error } = useQuery(GetPolesDocument, {
+  const [getPoles, { data, loading, error }] = useLazyQuery(GetPolesDocument, {
     variables: {
       skip: itemsPerPage * page,
       take: itemsPerPage,
     },
   });
+
+  useFocusEffect(
+    useCallback(() => {
+      getPoles();
+    }, [])
+  );
 
   const numPages = useMemo(
     () => Math.ceil(poleCount / itemsPerPage),
