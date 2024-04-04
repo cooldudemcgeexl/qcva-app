@@ -6,8 +6,13 @@ query getOrderCount($where: OrderWhereInput) {
   }
 }
 
-query getOrders($where: OrderWhereInput, $skip: Int, $take: Int = 10) {
-  orders(where: $where, skip: $skip, take: $take) {
+query getOrders(
+  $where: OrderWhereInput
+  $skip: Int
+  $take: Int = 10
+  $orderBy: [OrderOrderByWithRelationInput!]
+) {
+  orders(where: $where, skip: $skip, take: $take, orderBy: $orderBy) {
     ...OrderTableFields
   }
 }
@@ -23,4 +28,5 @@ fragment OrderTableFields on Order {
   }
   orderDate
   orderTotal
+  closed
 }

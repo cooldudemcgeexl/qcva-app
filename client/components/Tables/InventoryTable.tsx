@@ -98,7 +98,7 @@ export default function InventoryTable() {
     numberOfPages: numPages,
     onPageChange: (page) => setPage(page),
     numberOfItemsPerPage: itemsPerPage,
-    label: `${createPageLabel(page, itemsPerPage, poleCount)}`,
+    label: createPageLabel(page, itemsPerPage, poleCount),
     numberOfItemsPerPageList: itemsPerPageList,
     onItemsPerPageChange: onItemsPerPageChange,
     showFastPaginationControls: true,
