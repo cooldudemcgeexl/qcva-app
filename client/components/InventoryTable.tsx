@@ -14,32 +14,33 @@ import QueryTable, {
 import { tableFormatString } from "@/utils/dates";
 import { createPageLabel } from "@/utils/tables";
 import { useFocusEffect } from "expo-router";
+import { ColWidths } from "@/constants/Tables";
 
 const columns: ColumnSpec<Pole> = {
   id: {
     headerTitle: "Pole ID",
-    cellProps: { style: { maxWidth: 48 } },
-    headerProps: { style: { maxWidth: 48 } },
+    cellProps: { style: { maxWidth: ColWidths.xs } },
+    headerProps: { style: { maxWidth: ColWidths.xs } },
   },
   length: {
     headerTitle: "L",
-    cellProps: { style: { maxWidth: 48 } },
-    headerProps: { style: { maxWidth: 48 } },
+    cellProps: { style: { maxWidth: ColWidths.xs } },
+    headerProps: { style: { maxWidth: ColWidths.xs } },
   },
   cm: {
     headerTitle: "CM",
-    cellProps: { style: { maxWidth: 48 } },
-    headerProps: { style: { maxWidth: 48 } },
+    cellProps: { style: { maxWidth: ColWidths.xs } },
+    headerProps: { style: { maxWidth: ColWidths.xs } },
   },
   weight: {
     headerTitle: "W",
-    cellProps: { style: { maxWidth: 48 } },
-    headerProps: { style: { maxWidth: 48 } },
+    cellProps: { style: { maxWidth: ColWidths.xs } },
+    headerProps: { style: { maxWidth: ColWidths.xs } },
   },
   flex: {
     headerTitle: "F",
-    cellProps: { style: { maxWidth: 64 } },
-    headerProps: { style: { maxWidth: 64 } },
+    cellProps: { style: { maxWidth: ColWidths.sm } },
+    headerProps: { style: { maxWidth: ColWidths.sm } },
   },
   serialNumber: {
     headerTitle: "SN",
