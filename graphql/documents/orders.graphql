@@ -1,0 +1,26 @@
+query getOrderCount($where: OrderWhereInput) {
+  aggregateOrder(where: $where) {
+    _count {
+      _all
+    }
+  }
+}
+
+query getOrders($where: OrderWhereInput, $skip: Int, $take: Int = 10) {
+  orders(where: $where, skip: $skip, take: $take) {
+    ...OrderTableFields
+  }
+}
+
+fragment OrderTableFields on Order {
+  id
+  orderItems {
+    orderType
+  }
+  customer {
+    firstName
+    lastName
+  }
+  orderDate
+  orderTotal
+}
