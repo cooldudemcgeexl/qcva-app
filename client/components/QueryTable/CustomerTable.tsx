@@ -6,7 +6,7 @@ import {
 import { useFocusEffect } from "expo-router";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import { useCallback, useMemo, useState } from "react";
-import QueryTable, { ColumnSpec, PaginationProps } from "./QueryTable";
+import QueryTable, { ColumnSpec, PaginationProps } from ".";
 
 const columns: ColumnSpec<Customer> = {
   firstName: {
