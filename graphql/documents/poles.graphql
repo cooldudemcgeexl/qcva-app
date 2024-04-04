@@ -1,0 +1,36 @@
+query getPoles($where: PoleWhereInput, $skip: Int, $take: Int = 10) {
+  poles(where: $where, skip: $skip, take: $take) {
+    ...PoleInvFields
+  }
+}
+
+query getPoleCount($where: PoleWhereInput) {
+  aggregatePole(where: $where) {
+    _count {
+      _all
+    }
+  }
+}
+
+fragment PoleInvFields on Pole {
+  id
+  length
+  cm
+  weight
+  flex
+  serialNumber
+  status
+  dop
+  note
+  history {
+    ...PoleHistoryEntries
+  }
+  nfc
+}
+
+fragment PoleHistoryEntries on PoleHistory {
+  date
+  comment
+  id
+  poleId
+}
