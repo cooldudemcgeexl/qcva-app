@@ -13,8 +13,9 @@ import QueryTable, {
 } from "../QueryTable";
 import { tableFormatString } from "@/utils/dates";
 import { createPageLabel } from "@/utils/tables";
-import { useFocusEffect } from "expo-router";
+import { Href, router, useFocusEffect } from "expo-router";
 import { ColWidths } from "@/constants/Tables";
+import { GestureResponderEvent } from "react-native";
 
 const columns: ColumnSpec<Pole> = {
   id: {
@@ -66,6 +67,10 @@ const columns: ColumnSpec<Pole> = {
   },
 };
 
+export function navToRowId(_: GestureResponderEvent, rowId?: string) {
+  router.push(`/inventory/pole/${rowId}`);
+}
+
 export default function InventoryTable() {
   const [page, setPage] = useState(0);
   const [itemsPerPageList] = useState([10, 20, 50, 100]);
@@ -113,6 +118,7 @@ export default function InventoryTable() {
       rowKeyField={"id"}
       paginationProps={paginationProps}
       defaultTableSize={(itemsPerPage + 2) * 50}
+      onRowPress={navToRowId}
     ></QueryTable>
   );
 }

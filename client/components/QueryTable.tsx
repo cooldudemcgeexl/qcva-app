@@ -1,5 +1,6 @@
 import { QueryDoc } from "@/utils/queryDocuments";
 import React, { ReactNode, useMemo } from "react";
+import { GestureResponderEvent } from "react-native";
 import { DataTable, ActivityIndicator } from "react-native-paper";
 import { entries, values } from "remeda";
 
@@ -23,6 +24,7 @@ export interface QueryTableProps<T extends QueryDoc> {
   columns: ColumnSpec<T>;
   paginationProps: PaginationProps;
   defaultTableSize?: number;
+  onRowPress?: (e: GestureResponderEvent, rowId?: string) => void;
 }
 
 interface CellHeader {
@@ -37,6 +39,7 @@ export default function QueryTable<T extends QueryDoc>({
   columns,
   paginationProps,
   defaultTableSize,
+  onRowPress,
 }: QueryTableProps<T>) {
   const tableHeaders: CellHeader[] = useMemo(
     () =>
@@ -65,7 +68,12 @@ export default function QueryTable<T extends QueryDoc>({
         ></ActivityIndicator>
       ) : (
         queryData.map((dataVal) => (
-          <DataTable.Row key={dataVal[rowKeyField]}>
+          <DataTable.Row
+            key={dataVal[rowKeyField]}
+            onPress={(e: GestureResponderEvent) =>
+              onRowPress?.(e, dataVal[rowKeyField])
+            }
+          >
             {entries(dataVal).map(([fieldKey, fieldVal]) => {
               if (fieldKey in columns) {
                 const columnSpec = columns[fieldKey];
