@@ -10,7 +10,7 @@ export const navRoutes: NavRoute[] = [
     routeOptions: { drawerLabel: "Customers", title: "Customers" }
   },
   {
-    name: 'inventory',
+    name: 'inventory/index',
     routeOptions: { drawerLabel: "Inventory", title: "Inventory" }
   },
   {

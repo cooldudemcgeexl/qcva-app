@@ -10,7 +10,7 @@ export default function InventoryScreen() {
         <Button
           mode="contained"
           icon="plus"
-          onPress={() => router.push("/poleDetails/")}
+          onPress={() => router.push("/inventory/poleDetails/")}
         >
           Add New
         </Button>
