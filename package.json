@@ -9,6 +9,8 @@
     "install:client": "cd client && yarn",
     "install:gql": "cd graphql && yarn setup",
     "install:server": "cd server && yarn",
-    "setup": "yarn install:client && yarn install:gql && yarn install:server"
+    "setup": "yarn install:client && yarn install:gql && yarn install:server",
+    "dev:client": "cd client && yarn dev",
+    "dev:server": "cd server && yarn dev"
   }
 }
