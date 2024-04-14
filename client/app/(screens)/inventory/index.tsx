@@ -5,7 +5,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Button, Icon, MD3Colors } from "react-native-paper";
 export default function InventoryScreen() {
   return (
-    <View className="w-full flex-1 justify-center items-center">
+    <View className="w-full flex-1 justify-center items-center bg-white">
       <View className="py-4 self-end px-12 align-middle">
         <Button
           mode="contained"

@@ -1,6 +1,8 @@
 import { DrawerNavigationOptions } from "@react-navigation/drawer";
 import { Drawer } from "expo-router/drawer";
 
+const initRoute: string | undefined = "inventory";
+
 export interface NavRoute {
   name: string;
   routeOptions: DrawerNavigationOptions;
@@ -12,7 +14,7 @@ export interface NavDrawerProps {
 
 export default function NavDrawer(props: NavDrawerProps) {
   return (
-    <Drawer>
+    <Drawer initialRouteName={initRoute}>
       {props.routes.map(({ name, routeOptions }) => (
         <Drawer.Screen
           name={name}

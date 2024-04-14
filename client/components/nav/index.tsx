@@ -5,7 +5,7 @@ import { Slot } from "expo-router";
 
 export default function NavDrawerContainer() {
   return (
-    <GestureHandlerRootView className="flex-1">
+    <GestureHandlerRootView className="flex-1 bg-white">
       <NavDrawer routes={navRoutes}></NavDrawer>
     </GestureHandlerRootView>
   );
