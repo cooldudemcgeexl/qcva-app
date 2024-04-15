@@ -1,3 +1,21 @@
+mutation createPole($data: PoleCreateInput!) {
+  createOnePole(data: $data) {
+    ...PoleCreateFields
+  }
+}
+
+fragment PoleCreateFields on Pole {
+  id
+  length
+  cm
+  weight
+  flex
+  serialNumber
+  status
+  dop
+  nfc
+}
+
 query getPoles($where: PoleWhereInput, $skip: Int, $take: Int = 10) {
   poles(where: $where, skip: $skip, take: $take) {
     ...PoleInvFields
