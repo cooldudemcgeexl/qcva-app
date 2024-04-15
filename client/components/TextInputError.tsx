@@ -1,4 +1,4 @@
-import { isDefined } from "@/utils/validation";
+import { isDefined, isDefinedAndTrue } from "@/utils/validation";
 import { FormikHandlers } from "formik";
 import { View } from "react-native";
 import { TextInput, HelperText } from "react-native-paper";
@@ -23,11 +23,11 @@ export default function TextInputError({
   handleBlur,
 }: TextInputErrorProps) {
   const hasError = isDefined(error);
-  const hasTouched = isDefined(touched) && touched;
+  const hasTouched = isDefinedAndTrue(touched);
   const showError = hasError && hasTouched;
 
   return (
-    <View>
+    <View className="flex-1 justify-between">
       <TextInput
         onChangeText={handleChange(fieldKey)}
         onBlur={handleBlur(fieldKey)}
@@ -35,7 +35,7 @@ export default function TextInputError({
         label={label}
         error={showError}
       />
-      <HelperText type="error" visible={showError}>
+      <HelperText type="error" visible={showError} className="min-h-[12px]">
         {error}
       </HelperText>
     </View>
