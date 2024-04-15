@@ -5,7 +5,8 @@ import * as Yup from "yup";
 import TextInputError from "./TextInputError";
 import { LengthPicker } from "./LengthPicker";
 import { isDefined, isDefinedAndTrue } from "@/utils/validation";
-import { PoleLengths } from "@/constants/Poles";
+import { PoleLengths, PoleLengthsMetric, PoleStatus } from "@/constants/Poles";
+import { PoleCreateInput } from "@/generated";
 
 Yup.setLocale({
   mixed: {
@@ -27,6 +28,28 @@ const poleSchema = Yup.object().shape({
     .required("Required"),
   cost: numGtZeroSchema,
 });
+
+interface PoleFormValues {
+  length: (typeof PoleLengths)[number];
+  weight: string;
+  flex: string;
+  serialNumber: string;
+  cost: string;
+}
+
+function buildPoleInput(formValues: PoleFormValues): PoleCreateInput {
+  const poleInput: PoleCreateInput = {
+    length: formValues.length,
+    cm: PoleLengthsMetric[formValues.length],
+    weight: parseFloat(formValues.weight),
+    flex: formValues.flex,
+    serialNumber: formValues.serialNumber,
+    cost: formValues.cost,
+    status: "Active",
+    dop: new Date(),
+  };
+  return poleInput;
+}
 
 export default function PoleForm() {
   return (
